@@ -1,4 +1,4 @@
-FROM php:5.6-fpm-alpine
+FROM php:7.1-fpm-alpine
 
 RUN apk --no-cache add openldap-dev \
 		       libpng-dev \
@@ -39,7 +39,7 @@ RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ \
 			   ldap \
                            pdo_mysql && \
     pecl install imagick && \
-    pecl install memcached-2.2.0 && \
+    pecl install memcached-3.0.3 && \
     pecl install timezonedb && \
     docker-php-ext-enable imagick \
                           memcached \
