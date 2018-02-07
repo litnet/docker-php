@@ -37,6 +37,7 @@ RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ \
                            opcache \
                            zip \
 			   intl \
+			   xmlrpc \
 			   ldap \
                            pdo_mysql && \
     pecl install imagick && \
