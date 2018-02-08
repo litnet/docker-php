@@ -13,10 +13,14 @@ RUN apk --no-cache add openldap-dev \
                        imagemagick-dev \
                        libmemcached-dev \
                        cyrus-sasl-dev \
+		       icu-dev \
+		       zlib-dev \
+		       g++ \
                        ${PHPIZE_DEPS}
 
 RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ \
                                 --with-jpeg-dir=/usr/include/ && \
+    docker-php-ext-configure intl && \
     docker-php-ext-install bcmath \
                            bz2 \
                            calendar \
@@ -39,13 +43,15 @@ RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ \
 			   mysql \
 			   xmlrpc \
 			   ldap \
-                           pdo_mysql && \
+                           pdo_mysql \
+			   intl  && \
     pecl install imagick && \
     pecl install memcached-2.2.0 && \
     pecl install timezonedb && \
     docker-php-ext-enable imagick \
                           memcached \
-                          timezonedb
+                          timezonedb \
+			  intl
 
 RUN echo "include=etc/php-fpm.custom.d/*.conf" >> /usr/local/etc/php-fpm.conf && \
     apk del ${PHPIZE_DEPS} libtool
